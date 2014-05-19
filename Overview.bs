@@ -1,0 +1,744 @@
+<h1>CSS Line Layout Module Level 3</h1>
+<pre class="metadata">
+Shortname: css-linebox
+Level: 3
+Status: ED
+Group: csswg
+ED: http://dev.w3.org/csswg/css3-linebox/
+TR: http://www.w3.org/TR/css3-linebox/
+Previous Version: http://www.w3.org/TR/2002/WD-css3-linebox-20020515
+Editor: John Daggett, Mozilla, jdaggett@mozilla.com
+Editor: Steve Zilles, Adobe, szilles@adobe.com
+Editor: fantasai, Invited Expert, http://fantasai.inkedblade.net/contact
+Editor: Dave Cramer, Hachette Livre, dave.cramer@hbgusa.com
+Former Editor: L. David Baron, Mozilla Corporation
+Former Editor: Michel Suignard, Microsoft
+!Issue Tracking: <a href="https://www.w3.org/Bugs/Public/buglist.cgi?query_format=advanced&product=CSS&component=Linebox&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED">CSS3 Line Layout issues in Bugzilla</a>
+Abstract: The CSS formatting model provides for a flow of elements and text inside of a container to be wrapped into lines.  The formatting of elements and text within a line, its positioning in the inline progression direction, and the breaking of lines are described in [[CSS3TEXT]].  This module describes the positioning in the block progression direction both of elements and text within lines and of the lines themselves.  This positioning is often relative to a baseline.  It also describes special features for formatting of first lines and drop caps.  It extends on the model in [[CSS2]].
+
+
+</pre>
+
+
+<h2 id="Initial">Initial Lines and Drop Initials</h2>
+
+<h3 id="InitialLine">Initial Lines</h3>
+
+Initial lines of block elements such as paragraphs are often designed differently than subsequent lines. Initial line may be set in small caps, all caps, or even different fonts. The <code>::first-line</code> pseudo-element allows authors to control the presentation of these initial lines. However, only the following properties can be applied to the <code>::first-line</code> pseudo-element:
+
+<!-- 
+On a block element containing inline elements, the initial line is very often presented differently. For example it may use a difference typeface, a color, font-size or even casing (like all uppercase). The presentation of that initial 
+line can be controlled by applying a limited set of style properties to the <code>::first-line</code> pseudo element. Only the following properties can be applied to the <code>::first-line</code> pseudo elements:
+ -->
+
+<ul>
+  <li>font properties</li>
+  <li>color properties</li>
+  <li>background properties</li>
+  <li>text decoration properties</li>
+  <li>baseline alignment properties</li>
+  <li>'word-spacing'</li>
+  <li>'letter-spacing'</li>
+  <li>'line-height' (may be ignored depending on the block line-stacking strategy)</li>
+  <li>'text-shadow'</li>
+  <li>'clear'</li>
+  </ul>
+  
+  
+Note that the 'text-indent' property typically only affects the initial line of a block element, unless its value is set to ''hanging''.
+
+<!-- Although there are no properties only applicable to <code>::first-line</code> pseudo elements, in essence the 'text-indent' property which is applied to block-level elements is in fact only effective on the first line of the block  element. -->
+
+
+
+
+
+
+<!-- 
+<h3 id="DropInitial">Drop Initial overview</h3>
+
+Drop initial is a typographic effect emphasizing the initial letter(s) of a block
+element with a presentation similar to a floated element. It can be described as the combination of the following effects:
+
+<ul>
+<li>For the purpose of drop initial, an initial letter has two alignment points: an 'after' alignment point and a 'before' alignment point. (For writing-mode:lr-tb, 'after' corresponds to bottom and 'before' to 'top').
+
+<li>The 'after' alignment point connects with one of the alignment point of the n<sup>th</sup> line of the block element of which the initial letter is part of. The value ''n'' is the number of lines by which the initial letter is dropped. That connection point is called the primary connection point. The union of the two alignment lines makes a connection line.
+
+<li>If no drop initial size is explicitly provided, there is a secondary connection point where the 'before' alignment points connects with one of the alignment point of the initial line. In that case the initial letter is totally sunken.
+
+<li>If a drop initial size is provided, there is no secondary connection point as it would result otherwise in an over constraint situation. In that case the initial letter may not be totally sunken, especially if the size is provided in 'line' unit with a number larger than the drop.
+
+<li>The values provided above result in the creation of an 'ink box' which is filled by the initial letter. Depending on the selected alignment points, part of the glyphs may bleed beyond the ink box.
+
+<li>The character content of the drop initial influences greatly how the drop initial letters are best aligned with the rest of the block element content.
+
+</ul>
+ -->
+ 
+ 
+ <h3 id="alt-drop-initial-overview">An Introduction to Drop Initials</h3>
+
+Large, decorative letters have been used to start new sections of text since before the invention of printing. In fact, their use predates lowercase letters entirely. 
+
+A <dfn>drop initial</dfn> is a larger-than-usual letter at the start of a paragraph, with a baseline at least one line lower than the first baseline of the paragraph. The size of the drop initial is usually indicated by how many lines it occuppies. Two- and three-line drop initial are very common.
+
+
+
+
+<figure>
+<img alt="3-line drop cap with E Acute"  src="Dropcap-E-acute-3line.png" width="480">
+
+<p class="caption">Three-line drop initial with E acute. Since the cap-height of the drop initial aligns with the cap-height of the main text, the accent extends above the paragraph.</p>
+
+</figure>
+
+
+ 
+
+</div>
+
+Drop initials are all about alignment. Reference points on the drop cap must align precisely with reference points in the text. In the most common case, used in western languages, the top reference points are the cap height of the drop initial and of the first line of text. The bottom reference points are the baseline of the drop initial, and the baseline of the Nth line of text. Figure three shows a simple two-line drop cap, with the relevant reference lines marked. 
+
+
+
+<figure>
+<img src="Dropcap-lines.png" width="600" alt="drop cap showing alignment"/>
+
+<p class="caption">Two-line drop cap showing baselines (green lines), cap-height (red line), and ascender (cyan line).</p>
+
+</figure>
+
+
+
+
+<figure>
+<img alt="3-line drop cap with J"  src="Dropcap-J-3line-bad.png" width="480">
+<p class="caption">Letters with descenders cause problems. </p>
+</figure>
+
+<!-- Where does the top of the drop cap go? Again, we define what part of the main text we're aligning with ('drop-initial-before-align'), and what part of the drop cap itself should align with that point ('drop-initial-before-adjust'). Typically, we'd align the cap height of the drop cap with the cap height of the main text. -->
+
+
+
+<div class="note">
+<p>The size of a drop cap is determined by the need to fill the space defined by the reference points above. In an N-line drop cap as described above, the height of the letter needs to be N times the line-height, plus the cap-height of text. Note this height is not the font size of the drop initial.</p>
+
+
+<p>Actually calculating the font size is tricky. Given the font size F of the main text, the line-height L, the number of lines N, and the cap-height ratio of the font c, we find the drop cap font side D to be:</p>
+
+
+<pre>
+cD = (N-1) * L + cF
+</pre>
+
+A two-line drop cap in Adobe Caslon Pro would have a font size of 35.222pt, given 16pt line-height and a cap-height of 659/1000.
+
+
+</div>
+
+
+
+<div class="issue">
+Typographers are concerned with alignment relative to certain features of the font:
+
+<ol>
+<li>
+top of em square (''text-before-edge''?)
+</li>
+<li>
+top of single accents on cap letters
+</li>
+<li>
+top of ascenders
+</li>
+<li>
+cap-height
+</li>
+<li>
+x-height
+</li>
+<li>
+(alphabetic) baseline
+</li>
+<li>
+bottom of descenders
+</li>
+<li>
+bottom of em square (''text-after-edge''?)
+</li>
+</ol>
+
+Which of these points do we have access to with typical fonts?
+
+</div>
+
+<h3 id="selecting-drop-initials">Selecting Drop Initials</h3>
+
+Drop initials are typically a single letter, which can be selected by the <code>::first-letter</code> pseudo-element, as defined in [[CSS-???]]. Authors who need more control over which characters are included in a drop initial can use a new value of 'display' to select a drop initial. 
+
+<pre class="propdef partial">
+Name: display
+New Values: drop-initial
+Media: visual
+</pre>
+
+
+<!-- 
+<p>The CSS mechanism to select the drop initial content is the <code>::first-letter</code> pseudo element. The first letter is defined as including all starting punctuation characters (defined in Unicode as “open” (Ps), “close” (Pe) and “other” (Po), if any, followed by the first non-punctuation character cluster. A character cluster may be a single character, a combining sequences (base character followed by combining characters) or a stacked set of characters (like in Thai).
+ -->
+
+
+Only the following properties can be applied to the <code>::first-letter</code> pseudo-elements:
+
+<ul>
+  <li>font properties</li>
+  <li>color properties</li>
+  <li>background properties</li>
+  <li>text decoration properties</li>
+  <li>baseline alignment properties (only if 'float' is ''none'')</li>
+  <li>'text-transform'</li>
+  <li>'letter-spacing'</li>
+  <li>'line-height' (may be ignored depending on the block line-stacking strategy)</li>
+  <li>margin properties</li>
+  <li>padding properties</li>
+  <li>border properties</li>
+  <li>'float'</li>
+  <li>text-shadow</li>
+  <li>'clear'</li>
+  <li>all properties described in this section (drop-initial-*)</li>
+  </ul>
+
+<!-- In addition, one property: 'text-indent' although applying to block-level elements is in fact effective on its first line of text and has therefore an influence on the indentation of the first-letter versus the start edge of the containing block. Using the 'text-indent' allows the correction of optical effect (like uppercase “O”) or even pushing the starting piece of the initial letter in a “virtual” margin. -->
+
+The 'text-indent' property, although applied to blocks, can greatly influence the position of a drop initial. This property can be used to shift the drop initial in the inline progression direction, to improve the optical alignment or even to set the entire drop initial in the margin.
+
+
+<!--
+<div class="note">Additional drop initial features are desirable but are not described in this specification:
+
+  <ul>
+    <li>bleeding between the drop initial and its related block content,</li>
+    <li>tight wrap between the drop initial and its related block content</li>
+    <li>multiple letter with author control (not possible with ::first-letter)</li>
+    <li>multiple size and alignment within the drop initial (required for French opening guillemet)</li>
+  </ul>
+
+ Some of these features (multiple letter and size) could be achieved by introducing a new display value, like 'display: drop-initial' which when applied to an inline element part of the first line could make it behave like a drop initial inline element. 
+</div>
+-->
+
+<!--
+
+The following figure shows first a simple case of a three line drop initial, and second a case of a two line drop initial but with a three line size initial letter.
+
+<figure>
+<img alt="simple drop caps" height="121" src="dc-simple.gif" width="376">
+
+<p class="caption">Typical drop initial cases: sunken cap and partially raised cap</p>
+</figure>
+
+The bottom horizontal line in the first example shows the alignment between the baseline of the initial letter and the baseline of the third line of its block element. The primary connection point occurs at the intersection of these baselines between the two boxes (the third line box and the initial letter box). The top horizontal line shows a connection point between the top of the ink of the initial letter and the text-before-edge baseline of the initial line. Alternatively, instead of the text-before-edge baseline, a new computed alignment could be used which correspond loosely to the maximum caps-height of the initial line.
+
+-->
+
+
+<h3>Sizing Drop Initials: the 'drop-initial-value' and 'drop-initial-size' Properties</h3>
+
+
+
+<pre class="propdef">
+Name: <dfn id="drop-initial-value">drop-initial-value</dfn>
+Value: <<integer>>
+Initial: 1
+Applies to: <code>::first-letter</code> pseudo elements and elements with 'display' value of ''drop-initial''
+Inherited: no
+Percentages: N/A
+Media: visual
+Computed value: specified value
+</pre>
+
+<p>The 'drop-initial-value' both creates a drop initial (if its value is an integer larger than 1), and determines which line of text the after edge of the drop initial aligns to. The following example describes a three-line drop initial, as seen in Figures 1 and 2:
+
+<div class="example">
+
+<figure>
+<img alt="3-line drop cap with C"  src="Dropcap-C-3line.png" width="480">
+
+<p class="caption">Three-line drop initial.</p>
+
+</figure>
+<pre>
+p::first-letter {
+drop-initial-value: 3;
+}
+</pre>
+
+
+</div>
+
+<dl dfn-type="value" dfn-for="drop-initial-value">
+<dt>initial</dt>
+
+<dd>The drop initial letter is aligned on the initial line, and no “drop” effect is created.</dd>
+
+<dt><<integer>></dt>
+
+<dd>The drop initial letter is sunken to the nth line (as determined by the integer value).</dd>
+</dl>
+
+<p class="issue">This needs to be a positive integer</p>
+
+
+Some styles of drop initials do not align with the first line of text. For example, “sunken caps” both sink below the first baseline, and extend above the first line of text. In these cases, the size of the initial cap needs to be defined. The 'drop-initial-size' property defaults to ''auto'', which produces an auto-sized drop cap. But lengths and percentages can also be used, but doing so overrides any constraints on the before-edge of the drop cap.
+
+
+<pre class="propdef">
+Name: <dfn id="drop-initial-size">drop-initial-size</dfn>
+Value: auto | <<integer>> | <<length>> | <<percentage>>
+Initial: auto
+Applies to: <code>::first-letter</code> pseudo elements and elements with 'display' value of ''drop-initial''
+Inherited: no
+Percentages: refer to combined line height size as provided by drop-initial-value
+Media: visual
+Computed value: TK
+</pre>
+
+<div class="example">
+
+<figure>
+<img src="SunkenCapA.png" width="480" alt="sunken drop initial"/>
+<p class="caption">Sunken drop initial, with size matching a three-line drop initial.</p>
+</figure>
+<pre>
+
+p::first-letter {
+drop-initial-value: 2;
+drop-initial-size: 52pt;
+}
+
+</pre>
+
+</div>
+
+
+Possible values:
+
+<dl>
+<dt>auto
+
+<dd>The drop initial letter is sized according to the constraints created by the ink filling strategy and the two connection lines.
+
+<p class="issue">As noted elsewhere, this strategy may be untenable.</p>
+
+<dt><<integer>></dt>
+
+<dd>The drop initial letter is sized using the combined line height of the nth lines (as determined by the line value). The letter may be stretched on one dimension if the line height of each line is variable to avoid circular issues.
+
+<p class="issue">What use case does this address that isn’t handled by simply setting the size to a length? This could be confusing for authors, since <code>drop-initial-size: 3</code> does not give you a 3-line drop cap. </p>
+
+<dt><<length>></dt>
+
+<dd>The drop initial letter is sized using the length value.
+
+<p class="issue">Perhaps clarify that if a physical length is given, that is used as the font-size of the drop initial, rather than the physical height of the letter?</p>
+
+
+<dt><<percentage>>
+
+<dd>The drop initial letter is sized relatively to the combined line height of the n lines determined by the 'drop-initial-value' property value.
+
+<p class="issue">Again, will the result be a font-size, or will it be measuring the height of the letter?</p>
+
+</dl>
+
+
+
+
+
+<!--
+
+
+
+<p class="note">Note that the 'drop-initial-before-align' and 'drop-initial-before-adjust' properties do not apply, because 'drop-initial-size' is not set to ''auto''.</p>
+
+
+Typically the ink of drop initial characters fills the space between the baseline and the text-before-edge, therefore taller characters are processed accordingly. This is shown in the first two pictures of the following figure, using first an accented letter, and then a letter without accent.
+
+<figure>
+<img alt="drop caps showing case with and without accent" height="148"
+src="dc-accents.gif" width="599"/>
+
+<p class="caption">Drop initial with accent and without accent</p>
+</figure>
+
+<p>The third picture shows a more correct effect with the acute accent drawn in the upper padding area. This effect is realized by having the secondary connection point between the initial letter caps height and the maximum caps height of the initial line.
+
+<div class="example">
+Left: 
+<pre>
+p::first-letter {
+drop-initial-value: 3;
+drop-initial-before-adjust: text-before-edge; /* this is why accent pushes down
+ }
+</pre>
+Middle and Right:
+<pre>
+p::first-letter {
+drop-initial-value: 3;
+drop-initial-before-adjust: text-before-edge;
+}
+</pre>
+</div>
+
+Typically characters are stretched in both direction to fill the space between the primary and secondary connection lines (in the absence of an explicit drop initial size). Even if the character has no “ink” at the primary connection line, the stretching is performed as if there were a “virtual” point at that level. The following figure demonstrates the effect for the hyphen-minus character. The other two characters demonstrate the variable stretching made by the drop initial effect.
+
+<figure>
+<img alt="drop cap with period, hyphen and exclamation point" height="122" src="dc-symbols.gif" width="625"/>
+
+<p class="caption">Drop initial with period, hyphen and exclamation point</p>
+</figure>
+
+<p class="issue">I don't believe these examples reflect how drop caps work in typesetting systems I'm familiar with. The alignment is based on font metrics, rather than the visible portions of characters. Setting a 3-line drop cap in Adobe InDesign using a period will align the cap height of that font with the cap height of the first line of text. Characters will not be enlarged greatly so that the top of the "ink" aligns with the top of the em-square.</p>
+
+For characters that have only ink “after” (below) their baseline there is really no good strategy. It may be better to use the font EM square as reference for symbols that have no ink at the primary connection line.
+
+<p class="issue">I don't understand the hyphen-minus example. I think the idea of "ink box" is quite problematic—do we actually have this value inside fonts? </p>
+
+
+Some characters are always expected to be shown as if using their full EM square, even in drop initial situation. For example, this is the case for all ideograms and related characters like the Japanese Kana characters. The following figure shows how the ink of the character representing the number one in CJK (middle picture) is not stretched to hit the top of the text-before-edge of the initial line, but is instead stretched following the same ratio as the character in the left picture. The picture on the right shows that drop initial can also be used in vertical flow.
+
+<figure>
+<img alt="drop cap with ideographs" height="140" src="dc-ideo.gif"
+width="521"/>
+
+<p class="caption">Drop initial with ideographic characters</p>
+</figure>
+
+Drop initial characters can be aligned using a variety of baselines for the drop initial alignment point used for the primary connection point. The examples above used the alphabetic and the ideographic baselines. The following figures compares the usage of the text-after-edge baseline (picture on the left) and the alphabetic baseline (picture on the right). Note that when the alphabetic baseline is used for characters that have ink below the baseline, the actual drop initial effect may occur through many more lines to accommodate the text-after-edge constraint.
+
+<figure>
+<img alt="drop cap with lowercase letters" height="144"
+src="dc-lowercase.gif" width="474"/>
+
+<p class="caption">Drop initial with lowercase characters</p>
+</figure>
+
+<figure>
+<img alt="drop cap with uppercase q" height="137" src="dc-upperq.gif"
+width="463"/>
+
+<p class="caption">Drop initial with uppercase character with descender</p>
+</figure>
+
+The drop initial effect may also be used for writing systems which use different alignment strategies. For example, in Devanagari the hanging baseline may be preferred. In that case the primary connection point connects the text-after-edge of the initial letter with the text-after-edge of the nth line, but the secondary connection point  connects the hanging baselines of the initial letter and the initial line. This is shown in the
+following figure:
+
+<figure>
+<p> <img alt="drop cap with devanagari" height="129" src="dc-devanagari.gif"
+width="225">
+
+<p class="caption">Drop initial with hanging devanagari characters</p>
+</figure>
+
+The drop initial effect is typically based on a number of lines, i.e. the combined line-height adjusted by the alignment strategies for the connection lines is used to determine the default size of the drop initial character. However there is a potential circular issue as the activation of the effect modifies the content of the lines and therefore may affect their line-height. The recommended strategy is to determine the drop initial character size using the initial combined line height and to possibly stretch the character along the new baseline if the combined line height is modified by the drop initial effect. The following figure shows the initial text on the left, an incorrect drop initial effect in the middle (no stretch applied) and a correct effect on the right (stretch applied).
+
+<figure>
+<img alt="drop cap with variable line heights" height="192"
+src="dc-variable.gif" width="565"/>
+
+<p class="caption">Drop initial with variable line heights</p>
+</figure>
+
+<h3 id="dropinitialdisplay">Creating Drop Caps</h3>
+
+
+
+<pre class="propdef partial">
+	Name: display
+	New Values: <dfn id="display-drop-initial">drop-initial</dfn>
+	Media: visual
+</pre>
+
+
+
+
+<h3 id="DropInitialSize">Sizing Drop Caps:  the <span
+class="property">'drop-initial-size'</span> and the <span
+class="property">'drop-initial-value'</span> properties</h3>
+
+-->
+
+<h3 id="DropInitialAlign">Aligning Drop Initials</h3>
+
+
+Here we define the properties that determine what reference points on the drop initial aligns with what reference points on the text. The drop-initial-after-* properties determine the alignment of the after edges, and apply whenever 'drop-initial-value' is an integer larger than ''1''. The drop-initial-before-* properties determine the alignment of the before edges, but only apply if 'drop-initial-value' is ''auto'', as otherwise there would be too many constraints on the size of the drop initial.
+
+
+The 'drop-initial-after-align' property determines which reference baseline in the Nth line of text is used to align the drop initial.
+
+
+
+<pre class="propdef">
+Name: <dfn id="drop-initial-after-align">drop-initial-after-align</dfn>
+Value: <<alignment-baseline>>
+Initial: baseline
+Applies to: <code>::first-letter</code> pseudo elements and elements with 'display' value of ''drop-initial''
+Inherited: no
+Percentages: N/A
+Media: visual
+Computed value: specified values (except for initial and inherit)
+</pre>
+
+
+<div class="example">
+
+Example needed for writing systems that don't use alphabetic baseline
+
+
+</div>
+
+
+
+<!-- The 'drop-initial-after-align' property determines which alignment line within the nth line box (n being defined by the 'drop-initial-value' property) is used at the primary connection point with the initial letter box. The values are the same as the 'alignment-baseline' property values. -->
+
+
+<pre class="propdef">
+Name: <dfn id="drop-initial-after-adjust">drop-initial-after-adjust</dfn>
+Value: central | middle | after-edge | text-after-edge | ideographic | alphabetic | mathematical | <<percentage>> | <<length>>
+Initial: text-after-edge
+Applies to: <code>::first-letter</code> pseudo elements and elements with 'display' value of ''drop-initial''
+Inherited: no
+Percentages: refer to combined line height size as provided by drop-initial-value
+Media: visual
+Computed value: specified values (except for initial and inherit)
+</pre>
+
+
+
+
+
+<p>The 'drop-initial-after-adjust' property sets the alignment point of the drop initial for the primary connection point. Possible values:
+
+
+
+
+<dl>
+<dt><dfn id="central">central</dfn>
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''central'' baseline of the element.
+
+<dt><dfn id="middle">middle</dfn>
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''middle'' baseline of the element.
+
+<dt><dfn id="after-edge">after-edge</dfn>
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''after-edge'' of the extended inline box of the element. This may include  or not the line-height of the element, depending on the line-stacking-strategy.
+
+<dt><dfn id="text-after-edge">text-after-edge</dfn>
+
+<dd>The alignment point is at the intersection of the end-edge of the element
+and the ''text-after-edge'' baseline of the element.
+
+<dt><dfn id="ideographic">ideographic</dfn>
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''ideographic'' baseline of the element.
+
+<dt><dfn id="alphabetic">alphabetic</dfn>
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''alphabetic'' baseline of the element.
+
+<dt><dfn id="hanging">hanging</dfn>
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''hanging'' baseline of the element.
+
+<dt><dfn id="mathematical">mathematical</dfn>
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''mathematical'' baseline of the element.
+
+<dt>&lt;percentage&gt;
+
+<dd>The computed value of the property is this percentage multiplied by the computed 'line-height' of the element. The alignment point is on the end-edge of the inline box and is offset from the after-edge by the computed value. A value of ''0%'' makes the text-after-edge the alignment point.
+
+<dt>&lt;length&gt;
+
+<dd>The alignment-point is on the end-edge of the inline box. Its position along the end-edge is offset from the after-edge by the &lt;length&gt; value. A value of ''0cm'' makes the text-after-edge the alignment point.
+</dl>
+
+
+
+<pre class="propdef">
+Name: <dfn id="drop-initial-before-align">drop-initial-before-align</dfn>
+Value: caps-height | &lt;'alignment-baseline'&gt;
+Initial: caps-height
+Applies to: <code>::first-letter</code> pseudo elements and elements with 'display' value of ''drop-initial''
+Inherited: no
+Percentages: N/A
+Media: visual
+Computed value: specified values (except for initial and inherit)
+</pre>
+
+The 'drop-initial-before-align' property determines which alignment line within the initial line box is used at the secondary connection point with the initial letter box. This property is only effective is the value of the 'drop-initial-size' property is ''auto''. Possible values:
+
+<dl>
+<dt>caps-height
+
+<dd>The caps-height alignment line is used.
+
+<dt> <strong>&lt;'alignment-baseline'&gt;</strong>
+
+<dd>The values are the same as the 'alignment-baseline' property values.
+</dl>
+
+
+<pre class="propdef">
+Name: <dfn id="drop-initial-before-adjust">drop-initial-before-adjust</dfn>
+Value: before-edge | text-before-edge | central | middle | hanging | mathematical | <<percentage>> | <<length>>
+Initial: text-before-edge
+Applies to: <code>::first-letter</code> pseudo elements and elements with 'display' value of ''drop-initial''
+Inherited: no
+Percentages: refer to combined line height size as provided by drop-initial-value
+Media: visual
+Computed value: specified values (except for initial and inherit)
+</pre>
+
+<p class="issue">Missing values: x-height, cap-height (should be default), ascenders. </p>
+
+
+The 'drop-initial-before-adjust' property sets the alignment point of the drop initial for the secondary connection point. This property is only effective if the value of the 'drop-initial-size' property is ''auto''. Possible values:
+
+<p class="note">In other words, what part of the top of drop cap are you aligning with the text?</p>
+
+<dl>
+<dt><dfn id="before-edge">before-edge</dfn>
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''before-edge'' of the extended inline box of the element. This may include or not the line-height of the element, depending on the line-stacking-strategy.
+
+<dt><dfn id="text-before-edge">text-before-edge</dfn>
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''text-before-edge'' baseline of the element.
+
+<dt>central
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''central'' baseline of the element.
+
+<dt>middle
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''middle'' baseline of the element.
+
+<dt>hanging
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''hanging'' baseline of the element.
+
+<dt>mathematical
+
+<dd>The alignment point is at the intersection of the end-edge of the element and the ''mathematical'' baseline of the element.
+
+<dt><<percentage>>
+
+<dd>The computed value of the property is this percentage multiplied by the computed 'line-height' of the element. The alignment point is on the end-edge of the inline box and is offset from the text-before-edge by the computed value. A value of '0%' makes the text-before-edge the alignment point.
+
+<dt><<length>>
+
+<dd>The alignment-point is on the end-edge of the inline box. Its position along the end-edge is offset from the text-before-edge by the <<length>> value. A value of ''0cm'' makes the text-before-edge the alignment point.
+</dl>
+
+
+
+<h2 id="bs">Bikeshedding Property Names</h2>
+
+<ul>
+<li>
+dropcap-size = drop-initial-value + drop-initial-size
+</li>
+<li>
+dropcap-align-before = drop-initial-adjust-before
+</li>
+<li>
+dropcap-parent-align-before = drop-initial-align-before
+</li>
+</ul>
+
+
+<h2 id="changes">Changes from previous editor’s draft</h2>
+
+<ul>
+<li>
+Change fundamental definition of how drop caps work. Eliminate references to “ink.”
+</li>
+<li>
+Add ''cap-height'' and ''x-height'' values to 'drop-initial-before-adjust' property.
+</li>
+<li>
+Change initial value of 'drop-initial-before-adjust' to ''cap-height''
+</li>
+<li>
+Change initial value of 'drop-initial-value' from ''initial'' to ''1''. (TK: add www-style reference)
+</li>
+<li>
+Change initial value of 'drop-initial-after-adjust' to ''alphabetic''.
+</li>
+<li>
+add ''x-height'' value to 'drop-initial-before-align' property.
+</li>
+<li>
+remove ''lines'' value from 'drop-initial-size' property.
+</li>
+</ul>
+
+<h2 id="fo">Proposal from <a href="http://www.w3.org/TR/2010/WD-xslfo20-20101216/#req2_1_7">Design Notes for XSL-FO</a></h2>
+
+
+<pre class="propdef">
+Name: <dfn>initial-cap-lines</dfn>
+Value: <<integer>> | <<length>>
+Initial: 0
+Applies to:
+Inherited: yes
+Percentage: refer to inherited font size
+Media: visual
+Computed Value: TK
+</pre>
+
+
+<pre class="propdef">
+Name: <dfn>initial-cap-lines-before</dfn>
+Value: <<integer>> | <<length>>
+Initial: 0pt
+Applies to:
+Inherited: yes
+Percentage: N/A
+Media: visual
+Computed Value: TK
+</pre>
+
+<pre class="propdef">
+Name: <dfn>initial-cap-kern-lines</dfn>
+Value: <<integer>> | <<length>>
+Initial: 0
+Applies to:
+Inherited: yes
+Percentage: refer to initial-cap-lines-after
+Media: visual
+Computed Value: TK
+</pre>
+
+
+<pre class="propdef">
+Name: <dfn>initial-cap-indent</dfn>
+Value: <<integer>> | <<length>> | auto | inherit
+Initial: 0pt
+Applies to:
+Inherited: yes
+Percentage: refer to initial-cap-lines-after
+Media: visual
+Computed Value: TK
+</pre>
+
+
+<h2 class="no-num" id="acknowledgments">
+Acknowledgments
+</h2>
+
+Thanks to Liam Quin and James Clark for invaluable feedback.

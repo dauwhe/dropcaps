@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang=en><head>
   <meta content="text/html; charset=utf-8" http-equiv=Content-Type>
   <title>CSS Line Layout Module Level 3</title>
-  <link href="default.css" rel="stylesheet" type="text/css">
+  <link href=../default.css rel=stylesheet type=text/css>
   <link href=../csslogo.ico rel="shortcut icon" type=image/x-icon>
   <style>
   body {
@@ -54,7 +54,7 @@
 </p>
   <h1 class="p-name no-ref" id=title>CSS Line Layout Module Level 3</h1>
   <h2 class="no-num no-toc no-ref heading settled heading" id=subtitle><span class=content>Editor’s Draft,
-    <span class=dt-updated><span class=value-title title=20140518>18 May 2014</span></span></span></h2>
+    <span class=dt-updated><span class=value-title title=20140519>19 May 2014</span></span></span></h2>
   <div data-fill-with=spec-metadata><dl><dt>This version:<dd><a class=u-url href=http://dev.w3.org/csswg/css3-linebox/>http://dev.w3.org/csswg/css3-linebox/</a><dt>Latest version:<dd><a href=http://www.w3.org/TR/css3-linebox/>http://www.w3.org/TR/css3-linebox/</a><dt>Editor’s Draft:<dd><a href=http://dev.w3.org/csswg/css3-linebox/>http://dev.w3.org/csswg/css3-linebox/</a><dt>Previous Versions:<dd><a href=http://www.w3.org/TR/2002/WD-css3-linebox-20020515 rel=previous>http://www.w3.org/TR/2002/WD-css3-linebox-20020515</a>
     <dt>Feedback:</dt>
         <dd><a href="mailto:www-style@w3.org?subject=%5Bcss-linebox%5D%20feedback">www-style@w3.org</a>
@@ -112,11 +112,7 @@ on screen, on paper, in speech, etc.</p>
 		<li><a href=#InitialLine><span class=secno>1.1</span>Initial Lines</a>
 		<li><a href=#alt-drop-initial-overview><span class=secno>1.2</span>An Introduction to Drop Initials</a>
 		<li><a href=#selecting-drop-initials><span class=secno>1.3</span>Selecting Drop Initials</a>
-		<li><a href=#sizing-drop-initials-the-drop-initial-value-and-drop-initial-size-properties><span class=secno>1.4</span>Sizing Drop Initials: the <span class=property data-link-type=propdesc title=drop-initial-value>drop-initial-value</span> and <span class=property data-link-type=propdesc title=drop-initial-size>drop-initial-size</span> Properties</a>
-		<li><a href=#DropInitialAlign><span class=secno>1.5</span>Aligning Drop Initials</a></ul>
-	<li><a href=#bs><span class=secno>2</span>Bikeshedding Property Names</a>
-	<li><a href=#changes><span class=secno>3</span>Changes from previous editor’s draft</a>
-	<li><a href=#fo><span class=secno>4</span>Proposal from <span>Design Notes for XSL-FO</span></a>
+		<li><a href=#sizing-drop-initials><span class=secno>1.4</span>Sizing Drop Initials: the <span class=property data-link-type=propdesc title=drop-initial-value>drop-initial-value</span> and <span class=property data-link-type=propdesc title=drop-initial-size>drop-initial-size</span> Properties</a></ul>
 	<li><a href=#acknowledgments><span class=secno></span> Acknowledgments </a>
 	<li><a href=#conformance><span class=secno></span> Conformance</a>
 		<ul class=toc>
@@ -159,14 +155,7 @@ Initial lines of block elements such as paragraphs are often designed differentl
   </ul>
 
 
-<p>Note that the <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css-text-3/#propdef-text-indent title=text-indent>text-indent</a> property typically only affects the initial line of a block element, unless its value is set to <a class=css data-link-type=maybe href=#hanging title=hanging>hanging</a>.</p>
-
-
-
-
-
-
-
+<p>Note that the <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css-text-3/#propdef-text-indent title=text-indent>text-indent</a> property typically only affects the initial line of a block element, unless its value is set to <span class=css data-link-type=maybe title=hanging>hanging</span>.</p>
 
 
 
@@ -208,7 +197,7 @@ Initial lines of block elements such as paragraphs are often designed differentl
 
 <figure>
 <img alt="3-line drop cap with J" src=Dropcap-J-3line-bad.png width=480>
-<p class=caption>Letters with descenders cause problems. </p>
+<p class=caption>Letters with descenders cause problems. This font is Minion Pro.</p>
 </figure>
 
 
@@ -231,46 +220,19 @@ Initial lines of block elements such as paragraphs are often designed differentl
 </div>
 
 
-
-<div class=issue id=issue-82b6e996><a class=self-link href=#issue-82b6e996></a>
-Typographers are concerned with alignment relative to certain features of the font:
-
-<ol>
-<li>
-top of em square (<a class=css data-link-type=maybe href=#text-before-edge title=text-before-edge>text-before-edge</a>?)
-</li>
-<li>
-top of single accents on cap letters
-</li>
-<li>
-top of ascenders
-</li>
-<li>
-cap-height
-</li>
-<li>
-x-height
-</li>
-<li>
-(alphabetic) baseline
-</li>
-<li>
-bottom of descenders
-</li>
-<li>
-bottom of em square (<a class=css data-link-type=maybe href=#text-after-edge title=text-after-edge>text-after-edge</a>?)
-</li>
-</ol>
-
-<p>Which of these points do we have access to with typical fonts?</p>
+<div class=issue id=issue-ac9cbb43><a class=self-link href=#issue-ac9cbb43></a>
+Can we constrain drop initials to situations where the line height of the paragraph is fixed? This would avoid a world of problems.
 
 </div>
+
 
 <h3 class="heading settled heading" data-level=1.3 id=selecting-drop-initials><span class=secno>1.3 </span><span class=content>Selecting Drop Initials</span><a class=self-link href=#selecting-drop-initials></a></h3>
 
 Drop initials are typically a single letter, which can be selected by the <code>::first-letter</code> pseudo-element, as defined in [[CSS-???]]. Authors who need more control over which characters are included in a drop initial can use a new value of <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css2/visuren.html#propdef-display title=display>display</a> to select a drop initial. 
 
 <table class="definition propdef partial"><tr><th>Name:<td><a class=css-code data-link-type=property href=http://dev.w3.org/csswg/css2/visuren.html#propdef-display title=display>display</a><tr><th>New values:<td>drop-initial<tr><th>Media:<td>visual</table>
+
+<p class=issue id=issue-a7e232b4><a class=self-link href=#issue-a7e232b4></a>Should we just skip this, and say that if an element has the dorp</p>
 
 
 
@@ -298,21 +260,15 @@ Only the following properties can be applied to the <code>::first-letter</code> 
 
 
 
-<p>The <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css-text-3/#propdef-text-indent title=text-indent>text-indent</a> property, although applied to blocks, can greatly influence the position of a drop initial. This property can be used to shift the drop initial in the inline progression direction, to improve the optical alignment or even to set the entire drop initial in the margin.</p>
 
-
-<p></p>
-
-<p></p>
-
-
-<h3 class="heading settled heading" data-level=1.4 id=sizing-drop-initials-the-drop-initial-value-and-drop-initial-size-properties><span class=secno>1.4 </span><span class=content>Sizing Drop Initials: the <a class=property data-link-type=propdesc href=#propdef-drop-initial-value title=drop-initial-value>drop-initial-value</a> and <a class=property data-link-type=propdesc href=#propdef-drop-initial-size title=drop-initial-size>drop-initial-size</a> Properties</span><a class=self-link href=#sizing-drop-initials-the-drop-initial-value-and-drop-initial-size-properties></a></h3>
+<h3 class="heading settled heading" data-level=1.4 id=sizing-drop-initials><span class=secno>1.4 </span><span class=content>Sizing Drop Initials: the <a class=property data-link-type=propdesc href=#propdef-drop-initial-value title=drop-initial-value>drop-initial-value</a> and <a class=property data-link-type=propdesc href=#propdef-drop-initial-size title=drop-initial-size>drop-initial-size</a> Properties</span><a class=self-link href=#sizing-drop-initials></a></h3>
 
 
 
 <table class="definition propdef"><tr><th>Name:<td><dfn class=css-code data-dfn-type=property data-export="" id=propdef-drop-initial-value>drop-initial-value<a class=self-link href=#propdef-drop-initial-value></a></dfn><tr><th>Value:<td class=prod><a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-syntax-3/#typedef-integer title="<integer>">&lt;integer&gt;</a><tr><th>Initial:<td>1<tr><th>Applies to:<td><code>::first-letter</code> pseudo elements and elements with <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css2/visuren.html#propdef-display title=display>display</a> value of <span class=css data-link-type=maybe title=drop-initial>drop-initial</span><tr><th>Inherited:<td>no<tr><th>Media:<td>visual<tr><th>Computed value:<td>specified value<tr><th>Percentages:<td>N/A</table>
 
-<p>The <a class=property data-link-type=propdesc href=#propdef-drop-initial-value title=drop-initial-value>drop-initial-value</a> both creates a drop initial (if its value is an integer larger than 1), and determines which line of text the after edge of the drop initial aligns to. The following example describes a three-line drop initial, as seen in Figures 1 and 2:
+<p>The <a class=property data-link-type=propdesc href=#propdef-drop-initial-value title=drop-initial-value>drop-initial-value</a> both creates a drop initial (if its value is an integer larger than 1), and determines which line of text the after edge of the drop initial aligns to. If the value is <span class=css data-link-type=maybe title=1>1</span>, no drop initial is created.</p>
+
 
 <div class=example>
 
@@ -330,17 +286,8 @@ drop-initial-value: 3;
 
 </div>
 
-<dl data-dfn-for=drop-initial-value data-dfn-type=value>
-<dt>initial</dt>
 
-<dd>The drop initial letter is aligned on the initial line, and no “drop” effect is created.</dd>
 
-<dt><a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-syntax-3/#typedef-integer title="<integer>">&lt;integer&gt;</a></dt>
-
-<dd>The drop initial letter is sunken to the nth line (as determined by the integer value).</dd>
-</dl>
-
-<p class=issue id=issue-22d2a643><a class=self-link href=#issue-22d2a643></a>This needs to be a positive integer</p>
 
 
 <p>Some styles of drop initials do not align with the first line of text. For example, “sunken caps” both sink below the first baseline, and extend above the first line of text. In these cases, the size of the initial cap needs to be defined. The <a class=property data-link-type=propdesc href=#propdef-drop-initial-size title=drop-initial-size>drop-initial-size</a> property defaults to <span class=css data-link-type=maybe title=auto>auto</span>, which produces an auto-sized drop cap. But lengths and percentages can also be used, but doing so overrides any constraints on the before-edge of the drop cap.</p>
@@ -399,209 +346,11 @@ drop-initial-size: 52pt;
 
 
 
-<p></p>
-
-<h3 class="heading settled heading" data-level=1.5 id=DropInitialAlign><span class=secno>1.5 </span><span class=content>Aligning Drop Initials</span><a class=self-link href=#DropInitialAlign></a></h3>
-
-
-<p>Here we define the properties that determine what reference points on the drop initial aligns with what reference points on the text. The drop-initial-after-* properties determine the alignment of the after edges, and apply whenever <a class=property data-link-type=propdesc href=#propdef-drop-initial-value title=drop-initial-value>drop-initial-value</a> is an integer larger than <span class=css data-link-type=maybe title=1>1</span>. The drop-initial-before-* properties determine the alignment of the before edges, but only apply if <a class=property data-link-type=propdesc href=#propdef-drop-initial-value title=drop-initial-value>drop-initial-value</a> is <span class=css data-link-type=maybe title=auto>auto</span>, as otherwise there would be too many constraints on the size of the drop initial.</p>
-
-
-<p>The <a class=property data-link-type=propdesc href=#propdef-drop-initial-after-align title=drop-initial-after-align>drop-initial-after-align</a> property determines which reference baseline in the Nth line of text is used to align the drop initial.</p>
-
-
-
-<table class="definition propdef"><tr><th>Name:<td><dfn class=css-code data-dfn-type=property data-export="" id=propdef-drop-initial-after-align>drop-initial-after-align<a class=self-link href=#propdef-drop-initial-after-align></a></dfn><tr><th>Value:<td class=prod><a class="production css-code" data-link-type=type title="<alignment-baseline>">&lt;alignment-baseline&gt;</a><tr><th>Initial:<td>baseline<tr><th>Applies to:<td><code>::first-letter</code> pseudo elements and elements with <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css2/visuren.html#propdef-display title=display>display</a> value of <span class=css data-link-type=maybe title=drop-initial>drop-initial</span><tr><th>Inherited:<td>no<tr><th>Media:<td>visual<tr><th>Computed value:<td>specified values (except for initial and inherit)<tr><th>Percentages:<td>N/A</table>
-
-
-<div class=example>
-
-<p>Example needed for writing systems that don’t use alphabetic baseline</p>
-
-
-</div>
-
-
-
-
-
-
-<table class="definition propdef"><tr><th>Name:<td><dfn class=css-code data-dfn-type=property data-export="" id=propdef-drop-initial-after-adjust>drop-initial-after-adjust<a class=self-link href=#propdef-drop-initial-after-adjust></a></dfn><tr><th>Value:<td class=prod>central | middle | after-edge | text-after-edge | ideographic | alphabetic | mathematical | <a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#percentage-value title="<percentage>">&lt;percentage&gt;</a> | <a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#length-value title="<length>">&lt;length&gt;</a><tr><th>Initial:<td>text-after-edge<tr><th>Applies to:<td><code>::first-letter</code> pseudo elements and elements with <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css2/visuren.html#propdef-display title=display>display</a> value of <span class=css data-link-type=maybe title=drop-initial>drop-initial</span><tr><th>Inherited:<td>no<tr><th>Media:<td>visual<tr><th>Computed value:<td>specified values (except for initial and inherit)<tr><th>Percentages:<td>refer to combined line height size as provided by drop-initial-value</table>
-
-
-
-
-
-<p>The <a class=property data-link-type=propdesc href=#propdef-drop-initial-after-adjust title=drop-initial-after-adjust>drop-initial-after-adjust</a> property sets the alignment point of the drop initial for the primary connection point. Possible values:
-
-
-
-
-<dl>
-<dt><dfn data-dfn-type=dfn data-noexport="" id=central>central<a class=self-link href=#central></a></dfn>
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#central title=central>central</a> baseline of the element.
-
-<dt><dfn data-dfn-type=dfn data-noexport="" id=middle>middle<a class=self-link href=#middle></a></dfn>
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#middle title=middle>middle</a> baseline of the element.
-
-<dt><dfn data-dfn-type=dfn data-noexport="" id=after-edge>after-edge<a class=self-link href=#after-edge></a></dfn>
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#after-edge title=after-edge>after-edge</a> of the extended inline box of the element. This may include  or not the line-height of the element, depending on the line-stacking-strategy.
-
-<dt><dfn data-dfn-type=dfn data-noexport="" id=text-after-edge>text-after-edge<a class=self-link href=#text-after-edge></a></dfn>
-
-<dd>The alignment point is at the intersection of the end-edge of the element
-and the <a class=css data-link-type=maybe href=#text-after-edge title=text-after-edge>text-after-edge</a> baseline of the element.
-
-<dt><dfn data-dfn-type=dfn data-noexport="" id=ideographic>ideographic<a class=self-link href=#ideographic></a></dfn>
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#ideographic title=ideographic>ideographic</a> baseline of the element.
-
-<dt><dfn data-dfn-type=dfn data-noexport="" id=alphabetic>alphabetic<a class=self-link href=#alphabetic></a></dfn>
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#alphabetic title=alphabetic>alphabetic</a> baseline of the element.
-
-<dt><dfn data-dfn-type=dfn data-noexport="" id=hanging>hanging<a class=self-link href=#hanging></a></dfn>
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#hanging title=hanging>hanging</a> baseline of the element.
-
-<dt><dfn data-dfn-type=dfn data-noexport="" id=mathematical>mathematical<a class=self-link href=#mathematical></a></dfn>
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#mathematical title=mathematical>mathematical</a> baseline of the element.
-
-<dt>&lt;percentage&gt;
-
-<dd>The computed value of the property is this percentage multiplied by the computed <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css2/visudet.html#propdef-line-height title=line-height>line-height</a> of the element. The alignment point is on the end-edge of the inline box and is offset from the after-edge by the computed value. A value of <span class=css data-link-type=maybe title=0%>0%</span> makes the text-after-edge the alignment point.
-
-<dt>&lt;length&gt;
-
-<dd>The alignment-point is on the end-edge of the inline box. Its position along the end-edge is offset from the after-edge by the &lt;length&gt; value. A value of <span class=css data-link-type=maybe title=0cm>0cm</span> makes the text-after-edge the alignment point.
-</dl>
-
-
-
-<table class="definition propdef"><tr><th>Name:<td><dfn class=css-code data-dfn-type=property data-export="" id=propdef-drop-initial-before-align>drop-initial-before-align<a class=self-link href=#propdef-drop-initial-before-align></a></dfn><tr><th>Value:<td class=prod>caps-height | &lt;<a class=property data-link-type=propdesc href=http://www.w3.org/TR/SVG/text.html#AlignmentBaselineProperty title=alignment-baseline>alignment-baseline</a>&gt;<tr><th>Initial:<td>caps-height<tr><th>Applies to:<td><code>::first-letter</code> pseudo elements and elements with <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css2/visuren.html#propdef-display title=display>display</a> value of <span class=css data-link-type=maybe title=drop-initial>drop-initial</span><tr><th>Inherited:<td>no<tr><th>Media:<td>visual<tr><th>Computed value:<td>specified values (except for initial and inherit)<tr><th>Percentages:<td>N/A</table>
-
-<p>The <a class=property data-link-type=propdesc href=#propdef-drop-initial-before-align title=drop-initial-before-align>drop-initial-before-align</a> property determines which alignment line within the initial line box is used at the secondary connection point with the initial letter box. This property is only effective is the value of the <a class=property data-link-type=propdesc href=#propdef-drop-initial-size title=drop-initial-size>drop-initial-size</a> property is <span class=css data-link-type=maybe title=auto>auto</span>. Possible values:</p>
-
-<dl>
-<dt>caps-height
-
-<dd>The caps-height alignment line is used.
-
-<dt> <strong>&lt;<a class=property data-link-type=propdesc href=http://www.w3.org/TR/SVG/text.html#AlignmentBaselineProperty title=alignment-baseline>alignment-baseline</a>&gt;</strong>
-
-<dd>The values are the same as the <a class=property data-link-type=propdesc href=http://www.w3.org/TR/SVG/text.html#AlignmentBaselineProperty title=alignment-baseline>alignment-baseline</a> property values.
-</dl>
-
-
-<table class="definition propdef"><tr><th>Name:<td><dfn class=css-code data-dfn-type=property data-export="" id=propdef-drop-initial-before-adjust>drop-initial-before-adjust<a class=self-link href=#propdef-drop-initial-before-adjust></a></dfn><tr><th>Value:<td class=prod>before-edge | text-before-edge | central | middle | hanging | mathematical | <a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#percentage-value title="<percentage>">&lt;percentage&gt;</a> | <a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#length-value title="<length>">&lt;length&gt;</a><tr><th>Initial:<td>text-before-edge<tr><th>Applies to:<td><code>::first-letter</code> pseudo elements and elements with <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css2/visuren.html#propdef-display title=display>display</a> value of <span class=css data-link-type=maybe title=drop-initial>drop-initial</span><tr><th>Inherited:<td>no<tr><th>Media:<td>visual<tr><th>Computed value:<td>specified values (except for initial and inherit)<tr><th>Percentages:<td>refer to combined line height size as provided by drop-initial-value</table>
-
-<p class=issue id=issue-bb064070><a class=self-link href=#issue-bb064070></a>Missing values: x-height, cap-height (should be default), ascenders. </p>
-
-
-<p>The <a class=property data-link-type=propdesc href=#propdef-drop-initial-before-adjust title=drop-initial-before-adjust>drop-initial-before-adjust</a> property sets the alignment point of the drop initial for the secondary connection point. This property is only effective if the value of the <a class=property data-link-type=propdesc href=#propdef-drop-initial-size title=drop-initial-size>drop-initial-size</a> property is <span class=css data-link-type=maybe title=auto>auto</span>. Possible values:</p>
-
-<p class=note>In other words, what part of the top of drop cap are you aligning with the text?</p>
-
-<dl>
-<dt><dfn data-dfn-type=dfn data-noexport="" id=before-edge>before-edge<a class=self-link href=#before-edge></a></dfn>
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#before-edge title=before-edge>before-edge</a> of the extended inline box of the element. This may include or not the line-height of the element, depending on the line-stacking-strategy.
-
-<dt><dfn data-dfn-type=dfn data-noexport="" id=text-before-edge>text-before-edge<a class=self-link href=#text-before-edge></a></dfn>
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#text-before-edge title=text-before-edge>text-before-edge</a> baseline of the element.
-
-<dt>central
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#central title=central>central</a> baseline of the element.
-
-<dt>middle
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#middle title=middle>middle</a> baseline of the element.
-
-<dt>hanging
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#hanging title=hanging>hanging</a> baseline of the element.
-
-<dt>mathematical
-
-<dd>The alignment point is at the intersection of the end-edge of the element and the <a class=css data-link-type=maybe href=#mathematical title=mathematical>mathematical</a> baseline of the element.
-
-<dt><a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#percentage-value title="<percentage>">&lt;percentage&gt;</a>
-
-<dd>The computed value of the property is this percentage multiplied by the computed <a class=property data-link-type=propdesc href=http://dev.w3.org/csswg/css2/visudet.html#propdef-line-height title=line-height>line-height</a> of the element. The alignment point is on the end-edge of the inline box and is offset from the text-before-edge by the computed value. A value of '0%' makes the text-before-edge the alignment point.
-
-<dt><a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#length-value title="<length>">&lt;length&gt;</a>
-
-<dd>The alignment-point is on the end-edge of the inline box. Its position along the end-edge is offset from the text-before-edge by the <a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#length-value title="<length>">&lt;length&gt;</a> value. A value of <span class=css data-link-type=maybe title=0cm>0cm</span> makes the text-before-edge the alignment point.
-</dl>
-
-
-
-<h2 class="heading settled heading" data-level=2 id=bs><span class=secno>2 </span><span class=content>Bikeshedding Property Names</span><a class=self-link href=#bs></a></h2>
-
-<ul>
-<li>
-dropcap-size = drop-initial-value + drop-initial-size
-</li>
-<li>
-dropcap-align-before = drop-initial-adjust-before
-</li>
-<li>
-dropcap-parent-align-before = drop-initial-align-before
-</li>
-</ul>
-
-
-<h2 class="heading settled heading" data-level=3 id=changes><span class=secno>3 </span><span class=content>Changes from previous editor’s draft</span><a class=self-link href=#changes></a></h2>
-
-<ul>
-<li>
-Change fundamental definition of how drop caps work. Eliminate references to “ink.”
-</li>
-<li>
-Add <span class=css data-link-type=maybe title=cap-height>cap-height</span> and <span class=css data-link-type=maybe title=x-height>x-height</span> values to <a class=property data-link-type=propdesc href=#propdef-drop-initial-before-adjust title=drop-initial-before-adjust>drop-initial-before-adjust</a> property.
-</li>
-<li>
-Change initial value of <a class=property data-link-type=propdesc href=#propdef-drop-initial-before-adjust title=drop-initial-before-adjust>drop-initial-before-adjust</a> to <span class=css data-link-type=maybe title=cap-height>cap-height</span>
-</li>
-<li>
-Change initial value of <a class=property data-link-type=propdesc href=#propdef-drop-initial-value title=drop-initial-value>drop-initial-value</a> from <span class=css data-link-type=maybe title=initial>initial</span> to <span class=css data-link-type=maybe title=1>1</span>. (TK: add www-style reference)
-</li>
-<li>
-Change initial value of <a class=property data-link-type=propdesc href=#propdef-drop-initial-after-adjust title=drop-initial-after-adjust>drop-initial-after-adjust</a> to <a class=css data-link-type=maybe href=#alphabetic title=alphabetic>alphabetic</a>.
-</li>
-<li>
-add <span class=css data-link-type=maybe title=x-height>x-height</span> value to <a class=property data-link-type=propdesc href=#propdef-drop-initial-before-align title=drop-initial-before-align>drop-initial-before-align</a> property.
-</li>
-<li>
-remove <span class=css data-link-type=maybe title=lines>lines</span> value from <a class=property data-link-type=propdesc href=#propdef-drop-initial-size title=drop-initial-size>drop-initial-size</a> property.
-</li>
-</ul>
-
-<h2 class="heading settled heading" data-level=4 id=fo><span class=secno>4 </span><span class=content>Proposal from <a href=http://www.w3.org/TR/2010/WD-xslfo20-20101216/#req2_1_7>Design Notes for XSL-FO</a></span><a class=self-link href=#fo></a></h2>
-
-
-<table class="definition propdef"><tr><th>Name:<td><dfn class=css-code data-dfn-type=property data-export="" id=propdef-initial-cap-lines>initial-cap-lines<a class=self-link href=#propdef-initial-cap-lines></a></dfn><tr><th>Value:<td class=prod><a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-syntax-3/#typedef-integer title="<integer>">&lt;integer&gt;</a> | <a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#length-value title="<length>">&lt;length&gt;</a><tr><th>Initial:<td>0<tr><th>Applies to:<td><tr><th>Inherited:<td>yes<tr><th>Media:<td>visual<tr><th>Computed value:<td>TK<tr><th>Percentage:<td>refer to inherited font size</table>
-
-
-<table class="definition propdef"><tr><th>Name:<td><dfn class=css-code data-dfn-type=property data-export="" id=propdef-initial-cap-lines-before>initial-cap-lines-before<a class=self-link href=#propdef-initial-cap-lines-before></a></dfn><tr><th>Value:<td class=prod><a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-syntax-3/#typedef-integer title="<integer>">&lt;integer&gt;</a> | <a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#length-value title="<length>">&lt;length&gt;</a><tr><th>Initial:<td>0pt<tr><th>Applies to:<td><tr><th>Inherited:<td>yes<tr><th>Media:<td>visual<tr><th>Computed value:<td>TK<tr><th>Percentage:<td>N/A</table>
-
-<table class="definition propdef"><tr><th>Name:<td><dfn class=css-code data-dfn-type=property data-export="" id=propdef-initial-cap-kern-lines>initial-cap-kern-lines<a class=self-link href=#propdef-initial-cap-kern-lines></a></dfn><tr><th>Value:<td class=prod><a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-syntax-3/#typedef-integer title="<integer>">&lt;integer&gt;</a> | <a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#length-value title="<length>">&lt;length&gt;</a><tr><th>Initial:<td>0<tr><th>Applies to:<td><tr><th>Inherited:<td>yes<tr><th>Media:<td>visual<tr><th>Computed value:<td>TK<tr><th>Percentage:<td>refer to initial-cap-lines-after</table>
-
-
-<table class="definition propdef"><tr><th>Name:<td><dfn class=css-code data-dfn-type=property data-export="" id=propdef-initial-cap-indent>initial-cap-indent<a class=self-link href=#propdef-initial-cap-indent></a></dfn><tr><th>Value:<td class=prod><a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-syntax-3/#typedef-integer title="<integer>">&lt;integer&gt;</a> | <a class="production css-code" data-link-type=type href=http://dev.w3.org/csswg/css-values-3/#length-value title="<length>">&lt;length&gt;</a> | auto | inherit<tr><th>Initial:<td>0pt<tr><th>Applies to:<td><tr><th>Inherited:<td>yes<tr><th>Media:<td>visual<tr><th>Computed value:<td>TK<tr><th>Percentage:<td>refer to initial-cap-lines-after</table>
-
-
 <h2 class="no-num heading settled heading" id=acknowledgments><span class=content>
 Acknowledgments
 </span><a class=self-link href=#acknowledgments></a></h2>
 
-<p>Thanks to Liam Quin and James Clark for invaluable feedback.</p>
+<p>Thanks to John Daggett, Liam Quin and James Clark for invaluable feedback.</p>
 
 <h2 class="no-ref no-num heading settled heading" id=conformance><span class=content>
 Conformance</span><a class=self-link href=#conformance></a></h2>
@@ -737,79 +486,25 @@ Informative References</span><a class=self-link href=#informative></a></h3>
 <h2 class="no-num no-ref heading settled heading" id=index><span class=content>
 Index</span><a class=self-link href=#index></a></h2>
 <div data-fill-with=index><ul class=indexlist>
-<li>after-edge, <a href=#after-edge title="section 1.5">1.5</a>
-<li>alphabetic, <a href=#alphabetic title="section 1.5">1.5</a>
-<li>before-edge, <a href=#before-edge title="section 1.5">1.5</a>
-<li>central, <a href=#central title="section 1.5">1.5</a>
 <li>drop initial, <a href=#drop-initial title="section 1.2">1.2</a>
-<li>drop-initial-after-adjust, <a href=#propdef-drop-initial-after-adjust title="section 1.5">1.5</a>
-<li>drop-initial-after-align, <a href=#propdef-drop-initial-after-align title="section 1.5">1.5</a>
-<li>drop-initial-before-adjust, <a href=#propdef-drop-initial-before-adjust title="section 1.5">1.5</a>
-<li>drop-initial-before-align, <a href=#propdef-drop-initial-before-align title="section 1.5">1.5</a>
 <li>drop-initial-size, <a href=#propdef-drop-initial-size title="section 1.4">1.4</a>
 <li>drop-initial-value, <a href=#propdef-drop-initial-value title="section 1.4">1.4</a>
-<li>hanging, <a href=#hanging title="section 1.5">1.5</a>
-<li>ideographic, <a href=#ideographic title="section 1.5">1.5</a>
-<li>initial-cap-indent, <a href=#propdef-initial-cap-indent title="section 4">4</a>
-<li>initial-cap-kern-lines, <a href=#propdef-initial-cap-kern-lines title="section 4">4</a>
-<li>initial-cap-lines, <a href=#propdef-initial-cap-lines title="section 4">4</a>
-<li>initial-cap-lines-before, <a href=#propdef-initial-cap-lines-before title="section 4">4</a>
-<li>mathematical, <a href=#mathematical title="section 1.5">1.5</a>
-<li>middle, <a href=#middle title="section 1.5">1.5</a>
-<li>text-after-edge, <a href=#text-after-edge title="section 1.5">1.5</a>
-<li>text-before-edge, <a href=#text-before-edge title="section 1.5">1.5</a>
 </ul></div>
 
 <h2 class="no-num no-ref heading settled heading" id=property-index><span class=content>
 Property index</span><a class=self-link href=#property-index></a></h2>
-<div data-fill-with=property-index><table class="proptable data"><thead><tr><th scope=col>Name<th scope=col>Value<th scope=col>Initial<th scope=col>Applies to<th scope=col>Inh.<th scope=col>%ages<th scope=col>Media<th scope=col>Computed value<th scope=col>Percentage<tbody>
-<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-drop-initial-value title=drop-initial-value>drop-initial-value</a><td>&lt;integer&gt;<td>1<td>::first-letter pseudo elements and elements with display value of drop-initial<td>no<td>N/A<td>visual<td>specified value<td>
-<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-drop-initial-size title=drop-initial-size>drop-initial-size</a><td>auto | &lt;integer&gt; | &lt;length&gt; | &lt;percentage&gt;<td>auto<td>::first-letter pseudo elements and elements with display value of drop-initial<td>no<td>refer to combined line height size as provided by drop-initial-value<td>visual<td>TK<td>
-<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-drop-initial-after-align title=drop-initial-after-align>drop-initial-after-align</a><td>&lt;alignment-baseline&gt;<td>baseline<td>::first-letter pseudo elements and elements with display value of drop-initial<td>no<td>N/A<td>visual<td>specified values (except for initial and inherit)<td>
-<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-drop-initial-after-adjust title=drop-initial-after-adjust>drop-initial-after-adjust</a><td>central | middle | after-edge | text-after-edge | ideographic | alphabetic | mathematical | &lt;percentage&gt; | &lt;length&gt;<td>text-after-edge<td>::first-letter pseudo elements and elements with display value of drop-initial<td>no<td>refer to combined line height size as provided by drop-initial-value<td>visual<td>specified values (except for initial and inherit)<td>
-<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-drop-initial-before-align title=drop-initial-before-align>drop-initial-before-align</a><td>caps-height | &lt;alignment-baseline&gt;<td>caps-height<td>::first-letter pseudo elements and elements with display value of drop-initial<td>no<td>N/A<td>visual<td>specified values (except for initial and inherit)<td>
-<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-drop-initial-before-adjust title=drop-initial-before-adjust>drop-initial-before-adjust</a><td>before-edge | text-before-edge | central | middle | hanging | mathematical | &lt;percentage&gt; | &lt;length&gt;<td>text-before-edge<td>::first-letter pseudo elements and elements with display value of drop-initial<td>no<td>refer to combined line height size as provided by drop-initial-value<td>visual<td>specified values (except for initial and inherit)<td>
-<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-initial-cap-lines title=initial-cap-lines>initial-cap-lines</a><td>&lt;integer&gt; | &lt;length&gt;<td>0<td><td>yes<td><td>visual<td>TK<td>refer to inherited font size
-<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-initial-cap-lines-before title=initial-cap-lines-before>initial-cap-lines-before</a><td>&lt;integer&gt; | &lt;length&gt;<td>0pt<td><td>yes<td><td>visual<td>TK<td>N/A
-<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-initial-cap-kern-lines title=initial-cap-kern-lines>initial-cap-kern-lines</a><td>&lt;integer&gt; | &lt;length&gt;<td>0<td><td>yes<td><td>visual<td>TK<td>refer to initial-cap-lines-after
-<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-initial-cap-indent title=initial-cap-indent>initial-cap-indent</a><td>&lt;integer&gt; | &lt;length&gt; | auto | inherit<td>0pt<td><td>yes<td><td>visual<td>TK<td>refer to initial-cap-lines-after</table></div>
+<div data-fill-with=property-index><table class="proptable data"><thead><tr><th scope=col>Name<th scope=col>Value<th scope=col>Initial<th scope=col>Applies to<th scope=col>Inh.<th scope=col>%ages<th scope=col>Media<th scope=col>Computed value<tbody>
+<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-drop-initial-value title=drop-initial-value>drop-initial-value</a><td>&lt;integer&gt;<td>1<td>::first-letter pseudo elements and elements with display value of drop-initial<td>no<td>N/A<td>visual<td>specified value
+<tr><th scope=row><a class=css-code data-link-type=property href=#propdef-drop-initial-size title=drop-initial-size>drop-initial-size</a><td>auto | &lt;integer&gt; | &lt;length&gt; | &lt;percentage&gt;<td>auto<td>::first-letter pseudo elements and elements with display value of drop-initial<td>no<td>refer to combined line height size as provided by drop-initial-value<td>visual<td>TK</table></div>
 
 
 <h2 class="no-num heading settled" id=issues-index><span class=content>Issues Index</span><a class=self-link href=#issues-index></a></h2><div style="counter-reset: issue"><div class=issue>
-Typographers are concerned with alignment relative to certain features of the font:
+Can we constrain drop initials to situations where the line height of the paragraph is fixed? This would avoid a world of problems.
 
-<ol>
-<li>
-top of em square (<a class=css data-link-type=maybe href=#text-before-edge title=text-before-edge>text-before-edge</a>?)
-</li>
-<li>
-top of single accents on cap letters
-</li>
-<li>
-top of ascenders
-</li>
-<li>
-cap-height
-</li>
-<li>
-x-height
-</li>
-<li>
-(alphabetic) baseline
-</li>
-<li>
-bottom of descenders
-</li>
-<li>
-bottom of em square (<a class=css data-link-type=maybe href=#text-after-edge title=text-after-edge>text-after-edge</a>?)
-</li>
-</ol>
+<a href=#issue-ac9cbb43> ↵ </a></div>
 
-<p>Which of these points do we have access to with typical fonts?</p>
 
-<a href=#issue-82b6e996> ↵ </a></div>
-
-<div class=issue>This needs to be a positive integer<a href=#issue-22d2a643> ↵ </a></div>
+<div class=issue>Should we just skip this, and say that if an element has the dorp<a href=#issue-a7e232b4> ↵ </a></div>
 
 
 <div class=issue>As noted elsewhere, this strategy may be untenable.<a href=#issue-b1e6e4bb> ↵ </a></div>
@@ -820,8 +515,5 @@ bottom of em square (<a class=css data-link-type=maybe href=#text-after-edge tit
 
 
 <div class=issue>Again, will the result be a font-size, or will it be measuring the height of the letter?<a href=#issue-70459ce9> ↵ </a></div>
-
-<div class=issue>Missing values: x-height, cap-height (should be default), ascenders. <a href=#issue-bb064070> ↵ </a></div>
-
 
 </div>
